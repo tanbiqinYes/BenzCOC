@@ -1,0 +1,46 @@
+  .el-table{
+    font-family: Arial,'宋体';
+    th{
+      .cell{
+        font-weight: bold;
+        padding: 0 14px;
+      }
+    }
+    td{
+      .cell{
+        padding: 0 6px;
+      }
+      &.el-table-column--selection{
+        .cell{
+          padding:0 14px;
+        }
+      }
+      .el-input__inner{
+        height: 34px;
+
+      }
+
+      .el-input__inner{
+        border-radius: 0;
+        padding: 0 6px;
+        border: 1px solid #e5e5e5;
+      }
+    }
+  }
+  
+  .searchCriteria{
+    .el-form-item__label{
+        padding-right: 5px;
+      }
+    .el-form-item__content{
+      margin-right: 30px;
+      .el-input__inner{
+        border: 1px solid #e5e5e5;
+        border-radius: 3px;
+        padding: 0 8px;
+      }
+    }
+      &:last-child{
+        margin-right: 0;
+      }
+  }
