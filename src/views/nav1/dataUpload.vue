@@ -23,6 +23,7 @@
   			<td>
   				<el-input
 				  placeholder="请选择文件"
+          v-model="fileName"
 				  :on-icon-click="handleIconClick">
 				</el-input>
   				<el-upload
@@ -33,11 +34,13 @@
 				  :before-upload="beforeUpload1"
 				  :on-preview="handlePreview"
 				  :on-remove="handleRemove"
+          :on-change="handleChange"
+          :show-file-list=false
 				  :file-list="flie_AFAB"
 				  :auto-upload="false">
 				  <el-button slot="trigger" type="primary" v-bind:class="{ hideBtn: selectedFile1 }" v-on:click="selected1()">选取文件</el-button>
 				  <el-button slot="trigger" class="reselect" v-bind:class="{ hideBtn: !selectedFile1 }">重选</el-button>
-				  <el-button class="remove" v-bind:class="{ hideBtn: !selectedFile1 }">移除</el-button>
+				  <el-button class="remove" v-bind:class="{ hideBtn: !selectedFile1 }" @click="fileRemove(fileInfo)">移除</el-button>
 				</el-upload>
   			</td>
   		</tr>
@@ -52,11 +55,11 @@
 				  class="upload-demo"
 				  ref="upload"
 				  action="https://jsonplaceholder.typicode.com/posts/"
-				  list-type="text"
 				  :before-upload="beforeUpload2"
 				  :on-preview="handlePreview"
 				  :on-remove="handleRemove"
           :file-list="flie_WINGS"
+          :show-file-list=false
 				  :auto-upload="false">
 				  <el-button slot="trigger" type="primary"  v-bind:class="{ hideBtn: selectedFile2 }" v-on:click="selected2()">选取文件</el-button>
 				  <el-button slot="trigger" class="reselect" v-bind:class="{ hideBtn: !selectedFile2 }">重选</el-button>
@@ -92,7 +95,8 @@
           label: '规则3'
         }],
         selectedRule: '规则1',
-        fileName: '123文件名',
+        fileName:'',
+        fileInfo:'',
         flie_AFAB: [],
         flie_WINGS: []
       }
@@ -115,15 +119,26 @@
 	    	console.log("beforeUpload");
 	    	this.selectedFile2 = !this.selectedFile2;
 	    },
+      handleChange(file, fileList) {
+        this.fileName = file.name;
+        this.fileInfo = file;
+        fileList = [];
+        fileList.push(file);//只保留最后一个上传的文件
+        console.log(fileList);
+      },
 	    submitUpload() {
           this.$refs.upload.submit();
           this.$refs.upload.clearFiles();
       },
       handleRemove(file, fileList) {
-	        //console.log(this.flie_WINGS[0]);
-        console.log(file);
-        //this.$refs.upload.clearFiles();
+        file = null;
+        fileList = [];
+        this.fileName = "";
+          console.log(file);
   		},
+      fileRemove(file){
+        this.handleRemove(file);
+      },
   		handlePreview(file) {
   			console.log(file);
   		},
